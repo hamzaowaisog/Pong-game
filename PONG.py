@@ -38,6 +38,8 @@ def main():
 
     score_1 = 0
     score_2 = 0
+    scoring_sound = pygame.mixer.Sound("scoring.wav")
+    poping_sound = pygame.mixer.Sound("poping.wav")
     game_started = False
 
 
@@ -67,6 +69,7 @@ def main():
 
             if ball.rect.x>=780:
                 score_1 += 1
+                scoring_sound.play()
                 if score_1 >= 10:
                     display_winner(screen, font, "Player 1")
                     pygame.time.wait(1000)
@@ -79,6 +82,7 @@ def main():
 
             if ball.rect.x<=2:
                 score_2 += 1
+                scoring_sound.play()
                 if score_2 >= 10:
                     display_winner(screen, font, "Player 2")
                     pygame.time.wait(1000)
@@ -96,6 +100,7 @@ def main():
 
             if pygame.sprite.collide_mask(ball, paddle1) or pygame.sprite.collide_mask(ball, paddle2):
                 ball.bounce()
+                poping_sound.play()
             screen.fill(black)
             pygame.draw.line(screen, white, [400, 0], [400, 600], 5)
             sprites_list.draw(screen)
